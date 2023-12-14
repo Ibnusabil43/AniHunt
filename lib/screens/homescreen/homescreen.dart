@@ -13,10 +13,19 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int carouselIndex = 0;
-
+  int thisSeasonIndex = 0;
   final CarouselController _carouselController = CarouselController();
-  static final List<Widget> _bannerWidgets =
-      Anime.animeList.map((anime) => _BannerNewRelease(anime: anime)).toList();
+  final CarouselController _thisSeasonController = CarouselController();
+  static final List<Widget> _newReleaseBannerWidgets = Anime.animeList
+      .map((anime) => _BannerNewRelease(
+            anime: anime,
+          ))
+      .toList();
+  static final List<Widget> _thisSeasonBannerWidgets = Anime.animeList
+      .map((anime) => _ThisSeasonBanner(
+            anime: anime,
+          ))
+      .toList();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             _NewRelease(
-                bannerWidgets: _bannerWidgets,
+                bannerWidgets: _newReleaseBannerWidgets,
                 carouselController: _carouselController,
                 initialIndex: carouselIndex,
                 onPageChanged: (index, reason) {
@@ -38,9 +47,206 @@ class _HomeScreenState extends State<HomeScreen> {
                     carouselIndex = index;
                   });
                 }),
+            const SizedBox(height: 40),
+            _ThisSeason(
+                bannerWidgets: _thisSeasonBannerWidgets,
+                controller: _thisSeasonController,
+                initialIndex: thisSeasonIndex,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    thisSeasonIndex = index;
+                  });
+                })
           ],
         ),
       ),
+    );
+  }
+}
+
+class _ThisSeason extends StatefulWidget {
+  final int initialIndex;
+  final CarouselController controller;
+  final List<Widget> bannerWidgets;
+  final Function(int index, CarouselPageChangedReason reason) onPageChanged;
+  const _ThisSeason(
+      {required this.bannerWidgets,
+      required this.controller,
+      required this.initialIndex,
+      required this.onPageChanged});
+
+  @override
+  State<_ThisSeason> createState() => _ThisSeasonState();
+}
+
+class _ThisSeasonState extends State<_ThisSeason> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 40, bottom: 10),
+          child: Text(
+            'This Season',
+            style: TextStyle(
+                color: textDark, fontSize: 24, fontWeight: FontWeight.w600),
+          ),
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.width * 0.6,
+          child: Stack(
+            children: [
+              CarouselSlider(
+                  items: widget.bannerWidgets,
+                  carouselController: widget.controller,
+                  options: CarouselOptions(
+                    enableInfiniteScroll: true,
+                    // disableCenter: true,
+                    padEnds: false,
+                    height: double.infinity,
+                    enlargeCenterPage: false,
+                    viewportFraction: 0.8,
+                    onPageChanged: widget.onPageChanged,
+                  )),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ThisSeasonBanner extends StatefulWidget {
+  final Anime anime;
+  final Function()? onPressedLiked;
+  final Function()? onPressedBookmarked;
+  const _ThisSeasonBanner({
+    required this.anime,
+    this.onPressedLiked,
+    this.onPressedBookmarked,
+  });
+
+  @override
+  State<_ThisSeasonBanner> createState() => _ThisSeasonBannerState();
+}
+
+class _ThisSeasonBannerState extends State<_ThisSeasonBanner> {
+  bool tapLike = false;
+  bool tapBookmark = false;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.width * 0.7,
+      width: MediaQuery.of(context).size.width * 0.7,
+      decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(40)),
+          image: DecorationImage(
+            image: AssetImage(widget.anime.imageUrl),
+            fit: BoxFit.cover,
+            colorFilter: const ColorFilter.mode(
+              Color.fromRGBO(0, 0, 0, 0.2),
+              BlendMode.darken,
+            ),
+          )),
+      child: Stack(children: [
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: InkWell(
+            onTap: () {},
+            child: Container(
+              height: MediaQuery.of(context).size.shortestSide * 0.13,
+              width: MediaQuery.of(context).size.shortestSide * 0.13,
+              decoration: BoxDecoration(
+                  color: primary,
+                  borderRadius:
+                      const BorderRadius.only(topLeft: Radius.circular(20))),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 5, top: 5),
+                child: Container(
+                  decoration: const BoxDecoration(
+                      color: Color.fromRGBO(255, 114, 114, 1),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20))),
+                  child: Icon(
+                    Icons.window,
+                    color: primary,
+                    size: MediaQuery.of(context).size.shortestSide * 0.07,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 50, left: 15, bottom: 15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                widget.anime.title,
+                style: TextStyle(
+                  color: textLight,
+                  fontSize: 20,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  Flexible(
+                    child: FilledButton(
+                        style: FilledButton.styleFrom(
+                            // fixedSize: Size.square(
+                            //     MediaQuery.of(context).size.shortestSide * 0.01),
+                            backgroundColor:
+                                const Color.fromRGBO(173, 170, 170, 0.75),
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              bottomLeft: Radius.circular(10),
+                            ))),
+                        onPressed: () {
+                          setState(() {
+                            tapLike = !tapLike;
+                            widget.onPressedLiked;
+                          });
+                        },
+                        child: Icon(
+                          tapLike ? Icons.thumb_up : Icons.thumb_up_outlined,
+                        )),
+                  ),
+                  const SizedBox(width: 2),
+                  Flexible(
+                    child: FilledButton(
+                        style: FilledButton.styleFrom(
+                            // fixedSize: Size.square(
+                            //     MediaQuery.of(context).size.shortestSide * 0.01),
+                            backgroundColor:
+                                const Color.fromRGBO(173, 170, 170, 0.75),
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(10),
+                              bottomRight: Radius.circular(10),
+                            ))),
+                        onPressed: () {
+                          setState(() {
+                            tapBookmark = !tapBookmark;
+                            widget.onPressedBookmarked;
+                          });
+                        },
+                        child: Icon(
+                          tapBookmark ? Icons.bookmark : Icons.bookmark_outline,
+                        )),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ]),
     );
   }
 }
@@ -71,7 +277,7 @@ class _NewReleaseState extends State<_NewRelease> {
           child: Text(
             'New Release',
             style: TextStyle(
-                color: accent, fontSize: 24, fontWeight: FontWeight.w600),
+                color: textDark, fontSize: 24, fontWeight: FontWeight.w600),
           ),
         ),
         SizedBox(
@@ -173,7 +379,8 @@ class _BannerNewRelease extends StatelessWidget {
             children: [
               Text(
                 anime.title,
-                style: const TextStyle(
+                style: TextStyle(
+                  color: textLight,
                   fontSize: 20,
                 ),
               ),
