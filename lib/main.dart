@@ -1,4 +1,4 @@
-import 'package:anihunt/AnimeDetail.dart';
+import 'package:anihunt/screens/screens.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
           fontFamily: 'Poppins'),
-      home: const AnimeDetail(),
+      home: const HomeScreen(),
     );
   }
 }
