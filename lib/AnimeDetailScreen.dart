@@ -109,7 +109,7 @@ class _AnimeDetailState extends State<AnimeDetail> {
                     height: 10,
                   ),
                   Text(
-                    "During their decade-long quest to defeat the Demon King, the members of the hero's party—Himmel himself, the priest Heiter, the dwarf warrior Eisen, and the elven mage Frieren—forge bonds through adventures and battles, creating unforgettable precious memories for most of them.",
+                    "During their decade-long quest to defeat the Demon King, the members of the hero's party—Himmel himself, the priest Heiter, the dwarf warrior Eisen, and the elven mage Frieren—forge bonds through adventures and battles, creating unforgettable precious memories for most of them.asdddddddddddddddddddddddddd",
                     style: TextStyle(
                       color: textSecondary,
                       fontSize: MediaQuery.of(context).size.width *
@@ -117,7 +117,13 @@ class _AnimeDetailState extends State<AnimeDetail> {
                           0.000048,
                       fontWeight: FontWeight.w100,
                     ),
-                  )
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 8,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  readMore(),
                 ],
               ),
             ),
@@ -193,6 +199,124 @@ class _AnimeDetailState extends State<AnimeDetail> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget readMore() {
+    return InkWell(
+      onTap: () {
+        showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            builder: (BuildContext context) {
+              return Container(
+                padding: EdgeInsets.all(25),
+                height: MediaQuery.of(context).size.height * 0.75,
+                width: MediaQuery.of(context).size.width,
+                decoration: ShapeDecoration(
+                  color: accent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text("Synopsis",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize:
+                                    MediaQuery.of(context).size.width * 0.06,
+                                fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.54,
+                      child: SingleChildScrollView(
+                        child: Text(
+                          "During their decade-long quest to defeat the Demon King, the members of the hero's party—Himmel himself, the priest Heiter, the dwarf warrior Eisen, and the elven mage Frieren—forge bonds through adventures and battles, creating unforgettable precious memories for most of them. During their decade-long quest to defeat the Demon King, the members of the hero's party—Himmel himself, the priest Heiter, the dwarf warrior Eisen, and the elven mage Frieren—forge bonds through adventures and battles, creating unforgettable precious memories for most of them. During their decade-long quest to defeat the Demon King, the members of the hero's party—Himmel himself, the priest Heiter, the dwarf warrior Eisen, and the elven mage Frieren—forge bonds through adventures and battles, creating unforgettable precious memories for most of them. During their decade-long quest to defeat the Demon King, the members of the hero's party—Himmel himself, the priest Heiter, the dwarf warrior Eisen, and the elven mage Frieren—forge bonds through adventures and battles, creating unforgettable precious memories for most of them.",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: MediaQuery.of(context).size.width *
+                                MediaQuery.of(context).size.height *
+                                0.000048,
+                            fontWeight: FontWeight.w100,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 40,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.055,
+                              width: MediaQuery.of(context).size.width * 0.3,
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: button1,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Trailer",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.04,
+                                        fontWeight: FontWeight.bold),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  Icon(
+                                    Icons.double_arrow_rounded,
+                                    color: Colors.white,
+                                    size: MediaQuery.of(context).size.width *
+                                        0.06,
+                                  )
+                                ],
+                              )),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            });
+      },
+      child: Text(
+        "Read More",
+        style: TextStyle(
+          fontSize: MediaQuery.of(context).size.width *
+              MediaQuery.of(context).size.height *
+              0.00005,
+          color: button1,
+          fontWeight: FontWeight.bold,
+          decoration: TextDecoration.underline,
+          decorationColor: button1,
+        ),
       ),
     );
   }

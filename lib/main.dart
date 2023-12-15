@@ -1,4 +1,4 @@
-import 'package:anihunt/AnimeDetail.dart';
+import 'package:anihunt/AnimeDetailScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
