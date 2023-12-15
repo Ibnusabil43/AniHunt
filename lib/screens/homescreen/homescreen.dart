@@ -188,9 +188,11 @@ class _ThisSeasonBannerState extends State<_ThisSeasonBanner> {
             children: [
               Text(
                 widget.anime.title,
+                maxLines: 2,
+                overflow: TextOverflow.clip,
                 style: TextStyle(
                   color: textLight,
-                  fontSize: 20,
+                  fontSize: MediaQuery.of(context).size.shortestSide * 0.06,
                 ),
               ),
               const SizedBox(height: 10),
@@ -387,11 +389,12 @@ class _BannerNewRelease extends StatelessWidget {
               const SizedBox(height: 10),
               Text(
                 anime.description,
-                // overflow: TextOverflow.fade,
-                textAlign: TextAlign.justify,
+                overflow: TextOverflow.clip,
+                maxLines: 3,
+                textAlign: TextAlign.left,
                 style: TextStyle(
                   color: textSecondary,
-                  fontSize: 10,
+                  fontSize: 12,
                 ),
               ),
             ],
