@@ -12,6 +12,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  String getGreeting() {
+    var hour = DateTime.now().hour;
+
+    if (hour >= 0 && hour < 5) {
+      return 'Night';
+    } else if (hour >= 5 && hour < 12) {
+      return 'Morning';
+    } else if (hour >= 12 && hour < 17) {
+      return 'Afternoon';
+    } else {
+      return 'Evening';
+    }
+  }
+
   int carouselIndex = 0;
 
   final CarouselController _carouselController = CarouselController();
@@ -20,11 +35,105 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String greeting = getGreeting();
     return Scaffold(
       backgroundColor: primary,
       appBar: AppBar(
-        title: const Text('homepage'),
-        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        toolbarHeight: 153,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Good $greeting !",
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                  ),
+                ),
+                ClipOval(
+                  child: Image.asset(
+                    "assets/ProfilePictureTest.jpg",
+                    width: 50,
+                    height: 50,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 24,
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 11),
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Colors.black, width: 2),
+                    ),
+                    child: Text(
+                      "Collection",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 12,
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 11),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Color(0xff565656), width: 2),
+                    ),
+                    child: Text(
+                      "Bookmarked",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xff565656),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 12,
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 11),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Color(0xff565656), width: 2),
+                    ),
+                    child: Text(
+                      "History",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xff565656),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
