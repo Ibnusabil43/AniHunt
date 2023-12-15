@@ -1,5 +1,6 @@
 import 'package:anihunt/Color/ColorConst.dart';
 import 'package:anihunt/models/anime.dart';
+import 'package:anihunt/screens/homescreen/bookmarked.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -28,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   int carouselIndex = 0;
+  int _selectedIndex = 0;
 
   final CarouselController _carouselController = CarouselController();
   static final List<Widget> _bannerWidgets =
@@ -37,120 +39,137 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     String greeting = getGreeting();
     return Scaffold(
-      backgroundColor: primary,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        toolbarHeight: 153,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Good $greeting !",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
-                ),
-                ClipOval(
-                  child: Image.asset(
-                    "assets/ProfilePictureTest.jpg",
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 24,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
+        backgroundColor: primary,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          automaticallyImplyLeading: false,
+          toolbarHeight: 153,
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 11),
-                    decoration: BoxDecoration(
+                  Text(
+                    "Good $greeting!",
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w600,
                       color: Colors.black,
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Colors.black, width: 2),
-                    ),
-                    child: Text(
-                      "Collection",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
                     ),
                   ),
-                  SizedBox(
-                    width: 12,
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 11),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Color(0xff565656), width: 2),
-                    ),
-                    child: Text(
-                      "Bookmarked",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xff565656),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 12,
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 11),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Color(0xff565656), width: 2),
-                    ),
-                    child: Text(
-                      "History",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xff565656),
-                      ),
+                  ClipOval(
+                    child: Image.asset(
+                      "assets/ProfilePictureTest.jpg",
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ],
               ),
-            ),
-          ],
+              SizedBox(
+                height: 24,
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    _buildAppBarButton("Home", 0),
+                    SizedBox(width: 12),
+                    _buildAppBarButton("Bookmarked", 1),
+                    SizedBox(width: 12),
+                    _buildAppBarButton("History", 2),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _NewRelease(
-                bannerWidgets: _bannerWidgets,
-                carouselController: _carouselController,
-                initialIndex: carouselIndex,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    carouselIndex = index;
-                  });
-                }),
-          ],
+        body: _buildBodyContent(_selectedIndex)
+        //     SingleChildScrollView(
+        //   child: Column(
+        //     children: [
+        //       _NewRelease(
+        //           bannerWidgets: _bannerWidgets,
+        //           carouselController: _carouselController,
+        //           initialIndex: carouselIndex,
+        //           onPageChanged: (index, reason) {
+        //             setState(() {
+        //               carouselIndex = index;
+        //             });
+        //           }),
+        //     ],
+        //   ),
+        // ),
+        );
+  }
+
+  Widget _buildAppBarButton(String text, int index) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selectedIndex = index;
+        });
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 11),
+        decoration: BoxDecoration(
+          color: _selectedIndex == index
+              ? const Color.fromARGB(255, 0, 0, 0)
+              : const Color.fromARGB(255, 255, 255, 255),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: const Color(0xFF565656),
+            width: 1,
+          ),
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            color: _selectedIndex == index
+                ? const Color.fromARGB(255, 255, 255, 255)
+                : const Color(0xFF565656),
+          ),
         ),
       ),
     );
+  }
+
+  Widget _buildBodyContent(int index) {
+    switch (index) {
+      case 0:
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              _NewRelease(
+                  bannerWidgets: _bannerWidgets,
+                  carouselController: _carouselController,
+                  initialIndex: carouselIndex,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      carouselIndex = index;
+                    });
+                  }),
+            ],
+          ),
+        );
+      case 1:
+        return SingleChildScrollView(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            children: [BookmarkedWidget()],
+          ),
+        );
+      case 2:
+        return Center(child: Text('History Content'));
+      default:
+        return Center(child: Text('Unknown Content'));
+    }
   }
 }
 
