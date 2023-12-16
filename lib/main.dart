@@ -1,6 +1,4 @@
-
 import 'package:anihunt/screens/screens.dart';
-import 'package:anihunt/AnimeDetailScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
