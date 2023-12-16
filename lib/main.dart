@@ -1,6 +1,4 @@
-import 'package:anihunt/screens/NavigationBar/BottomNavBar.dart';
-import 'package:anihunt/screens/screens.dart';
-import 'package:anihunt/screens/Detail/AnimeDetail.dart';
+import 'package:anihunt/screens/NavigationBar/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 
 void main() {
