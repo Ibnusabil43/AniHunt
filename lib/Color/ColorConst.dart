@@ -9,3 +9,5 @@ final Color primary = HexColor.fromHex('#FFFFFF');
 final Color textDark = HexColor.fromHex('#000000');
 final Color textLight = HexColor.fromHex('#FFFFFF');
 final Color textSecondary = HexColor.fromHex('#BABABA');
+final Color logoutButton = HexColor.fromHex('#F53E3E');
+final Color textSearch = HexColor.fromHex('#747171');

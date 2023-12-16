@@ -1,5 +1,6 @@
-import 'package:anihunt/Color/ColorConst.dart';
+import 'package:anihunt/Color/colorconst.dart';
 import 'package:anihunt/models/anime.dart';
+import 'package:anihunt/screens/homescreen/bookmarked.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -13,7 +14,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String getGreeting() {
+    var hour = DateTime.now().hour;
+
+    if (hour >= 0 && hour < 5) {
+      return 'Night';
+    } else if (hour >= 5 && hour < 12) {
+      return 'Morning';
+    } else if (hour >= 12 && hour < 17) {
+      return 'Afternoon';
+    } else {
+      return 'Evening';
+    }
+  }
+
   int carouselIndex = 0;
+  int _selectedIndex = 0;
+
   int thisSeasonIndex = 0;
   final CarouselController _carouselController = CarouselController();
   final CarouselController _thisSeasonController = CarouselController();
@@ -34,34 +51,149 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String greeting = getGreeting();
     return Scaffold(
-      backgroundColor: primary,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _NewRelease(
-                bannerWidgets: _newReleaseBannerWidgets,
-                carouselController: _carouselController,
-                initialIndex: carouselIndex,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    carouselIndex = index;
-                  });
-                }),
-            const SizedBox(height: 40),
-            _ThisSeason(
-                bannerWidgets: _thisSeasonBannerWidgets,
-                controller: _thisSeasonController,
-                initialIndex: thisSeasonIndex,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    thisSeasonIndex = index;
-                  });
-                })
-          ],
+        backgroundColor: primary,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          automaticallyImplyLeading: false,
+          toolbarHeight: 153,
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Good $greeting!",
+                    style: const TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                    ),
+                  ),
+                  ClipOval(
+                    child: Image.asset(
+                      "assets/ProfilePictureTest.jpg",
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    _buildAppBarButton("Home", 0),
+                    const SizedBox(width: 12),
+                    _buildAppBarButton("Bookmarked", 1),
+                    const SizedBox(width: 12),
+                    _buildAppBarButton("History", 2),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        body: _buildBodyContent(_selectedIndex)
+        //     SingleChildScrollView(
+        //   child: Column(
+        //     children: [
+        //       _NewRelease(
+        //           bannerWidgets: _bannerWidgets,
+        //           carouselController: _carouselController,
+        //           initialIndex: carouselIndex,
+        //           onPageChanged: (index, reason) {
+        //             setState(() {
+        //               carouselIndex = index;
+        //             });
+        //           }),
+        //     ],
+        //   ),
+        // ),
+        );
+  }
+
+  Widget _buildAppBarButton(String text, int index) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selectedIndex = index;
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 11),
+        decoration: BoxDecoration(
+          color: _selectedIndex == index
+              ? const Color.fromARGB(255, 0, 0, 0)
+              : const Color.fromARGB(255, 255, 255, 255),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: const Color(0xFF565656),
+            width: 1,
+          ),
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            color: _selectedIndex == index
+                ? const Color.fromARGB(255, 255, 255, 255)
+                : const Color(0xFF565656),
+          ),
         ),
       ),
     );
+  }
+
+  Widget _buildBodyContent(int index) {
+    switch (index) {
+      case 0:
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              _NewRelease(
+                  bannerWidgets: _newReleaseBannerWidgets,
+                  carouselController: _carouselController,
+                  initialIndex: carouselIndex,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      carouselIndex = index;
+                    });
+                  }),
+              const SizedBox(height: 40),
+              _ThisSeason(
+                  bannerWidgets: _thisSeasonBannerWidgets,
+                  controller: _thisSeasonController,
+                  initialIndex: thisSeasonIndex,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      thisSeasonIndex = index;
+                    });
+                  })
+            ],
+          ),
+        );
+      case 1:
+        return const SingleChildScrollView(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            children: [BookmarkedWidget()],
+          ),
+        );
+      case 2:
+        return const Center(child: Text('History Content'));
+      default:
+        return const Center(child: Text('Unknown Content'));
+    }
   }
 }
 
@@ -148,7 +280,7 @@ class _NewReleaseState extends State<_NewRelease> {
           ),
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.25,
+          height: MediaQuery.of(context).size.shortestSide * 0.6,
           child: Stack(
             children: [
               CarouselSlider(
