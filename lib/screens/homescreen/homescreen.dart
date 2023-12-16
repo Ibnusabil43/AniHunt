@@ -12,7 +12,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
   String getGreeting() {
     var hour = DateTime.now().hour;
 
@@ -51,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Good $greeting !",
+                  "Good $greeting!",
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.w600,
