@@ -1,6 +1,6 @@
-import 'package:anihunt/Color/ColorConst.dart';
-import 'package:anihunt/screens/Profile/ProfileScreen.dart';
-import 'package:anihunt/screens/Search/SearchAnime.dart';
+import 'package:anihunt/Color/colorconst.dart';
+import 'package:anihunt/screens/Profile/profile_screen.dart';
+import 'package:anihunt/screens/Search/searchanime.dart';
 import 'package:anihunt/screens/homescreen/homescreen.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +34,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20.0),
           topRight: Radius.circular(20.0),
         ),
@@ -61,8 +61,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
           onTap: _onItemTapped,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          selectedIconTheme: IconThemeData(size: 35),
-          unselectedIconTheme: IconThemeData(size: 32),
+          selectedIconTheme: const IconThemeData(size: 35),
+          unselectedIconTheme: const IconThemeData(size: 32),
         ),
       ),
     );

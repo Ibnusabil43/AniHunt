@@ -32,11 +32,11 @@ class _SearchAnimeState extends State<SearchAnime> {
         ),
       ),
       body: Container(
-        padding: EdgeInsets.only(left: 20, right: 20),
+        padding: const EdgeInsets.only(left: 20, right: 20),
         child: Column(
           children: [
             formCari(),
-            SizedBox(
+            const SizedBox(
               height: 18,
             ),
             // Expanded(
@@ -58,21 +58,21 @@ class _SearchAnimeState extends State<SearchAnime> {
 
   Widget formCari() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: ShapeDecoration(
         color: accent,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
       child: TextField(
-        style: TextStyle(color: Color(0xFFD2AFFF)),
+        style: const TextStyle(color: Color(0xFFD2AFFF)),
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(4),
+          contentPadding: const EdgeInsets.all(4),
           prefixIcon: Icon(
             Icons.search,
             color: textSearch,
             size: 20,
           ),
-          prefixIconConstraints: BoxConstraints(
+          prefixIconConstraints: const BoxConstraints(
             maxHeight: 20,
             minWidth: 25,
           ),

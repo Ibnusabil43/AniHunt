@@ -32,12 +32,13 @@ class _ProfileDetailState extends State<ProfileDetail> {
       ),
       backgroundColor: Colors.white,
       body: Container(
-        padding: EdgeInsets.only(top: 1.3, right: 20, left: 20, bottom: 10),
+        padding:
+            const EdgeInsets.only(top: 1.3, right: 20, left: 20, bottom: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              padding: EdgeInsets.only(left: 30),
+              padding: const EdgeInsets.only(left: 30),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: secondary,
@@ -50,7 +51,7 @@ class _ProfileDetailState extends State<ProfileDetail> {
                   Container(
                     height: MediaQuery.of(context).size.height * 0.1,
                     width: MediaQuery.of(context).size.height * 0.1,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
                         image: AssetImage("assets/ProfilePictureTest.jpg"),
@@ -58,7 +59,7 @@ class _ProfileDetailState extends State<ProfileDetail> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 15,
                   ),
                   Column(
@@ -84,9 +85,9 @@ class _ProfileDetailState extends State<ProfileDetail> {
                 ],
               ),
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Container(
-              padding: EdgeInsets.only(left: 30),
+              padding: const EdgeInsets.only(left: 30),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: secondary,
@@ -102,19 +103,19 @@ class _ProfileDetailState extends State<ProfileDetail> {
                           fontSize: MediaQuery.of(context).size.height * 0.022,
                           fontWeight: FontWeight.w600,
                           color: Colors.white)),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Text("307",
                       style: TextStyle(
                           fontSize: MediaQuery.of(context).size.height * 0.04,
                           fontWeight: FontWeight.w700,
                           color: Colors.white)),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Text("Bookmarked Anime",
                       style: TextStyle(
                           fontSize: MediaQuery.of(context).size.height * 0.022,
                           fontWeight: FontWeight.w600,
                           color: Colors.white)),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Text("28",
                       style: TextStyle(
                           fontSize: MediaQuery.of(context).size.height * 0.04,
@@ -123,7 +124,7 @@ class _ProfileDetailState extends State<ProfileDetail> {
                 ],
               ),
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             InkWell(
               onTap: () {},
               child: Container(
@@ -141,7 +142,7 @@ class _ProfileDetailState extends State<ProfileDetail> {
                         color: Colors.white,
                         size: MediaQuery.of(context).size.height * 0.04,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 15,
                       ),
                       Text("Logout",

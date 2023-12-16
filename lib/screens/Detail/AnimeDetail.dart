@@ -20,7 +20,7 @@ class _AnimeDetailState extends State<AnimeDetail> {
             fit: BoxFit.cover,
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            color: Color.fromRGBO(255, 255, 255, 0.4),
+            color: const Color.fromRGBO(255, 255, 255, 0.4),
             colorBlendMode: BlendMode.modulate,
           ),
           ClipRRect(
@@ -40,12 +40,12 @@ class _AnimeDetailState extends State<AnimeDetail> {
             left: 10,
             right: 10,
             child: Container(
-              padding:
-                  EdgeInsets.only(top: 14, left: 14, right: 14, bottom: 14),
+              padding: const EdgeInsets.only(
+                  top: 14, left: 14, right: 14, bottom: 14),
               width: MediaQuery.of(context).size.width * 0.95,
               height: MediaQuery.of(context).size.height * 0.48,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(20),
                       bottomLeft: Radius.circular(20),
                       bottomRight: Radius.circular(20)),
@@ -57,7 +57,7 @@ class _AnimeDetailState extends State<AnimeDetail> {
                           color: Colors.white,
                           fontSize: MediaQuery.of(context).size.width * 0.07,
                           fontWeight: FontWeight.bold)),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
@@ -81,7 +81,7 @@ class _AnimeDetailState extends State<AnimeDetail> {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Container(
@@ -105,7 +105,7 @@ class _AnimeDetailState extends State<AnimeDetail> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(
@@ -120,7 +120,7 @@ class _AnimeDetailState extends State<AnimeDetail> {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 8,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   readMore(),
@@ -133,11 +133,11 @@ class _AnimeDetailState extends State<AnimeDetail> {
                 (MediaQuery.of(context).size.height * 0.085 - 0.01),
             right: 10,
             child: Container(
-                padding: EdgeInsets.only(top: 12, left: 12, right: 12),
+                padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
                 width: MediaQuery.of(context).size.width * 0.45,
                 height: MediaQuery.of(context).size.height * 0.085,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(20),
                       topLeft: Radius.circular(20),
                     ),
@@ -177,15 +177,15 @@ class _AnimeDetailState extends State<AnimeDetail> {
               color: Colors.transparent,
               child: InkWell(
                 onTap: () async {},
-                customBorder: CircleBorder(),
+                customBorder: const CircleBorder(),
                 child: Ink(
                   decoration: ShapeDecoration(
                     color:
                         button1, // Sesuaikan dengan warna latar belakang yang diinginkan
-                    shape: CircleBorder(),
+                    shape: const CircleBorder(),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.all(
+                    padding: const EdgeInsets.all(
                         10.0), // Sesuaikan jarak antara ikon dan tepi tombol
                     child: Icon(
                       Icons.arrow_back_rounded,
@@ -212,12 +212,12 @@ class _AnimeDetailState extends State<AnimeDetail> {
             backgroundColor: Colors.transparent,
             builder: (BuildContext context) {
               return Container(
-                padding: EdgeInsets.all(25),
+                padding: const EdgeInsets.all(25),
                 height: MediaQuery.of(context).size.height * 0.75,
                 width: MediaQuery.of(context).size.width,
                 decoration: ShapeDecoration(
                   color: accent,
-                  shape: RoundedRectangleBorder(
+                  shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20),
@@ -238,10 +238,10 @@ class _AnimeDetailState extends State<AnimeDetail> {
                                 fontWeight: FontWeight.bold)),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Container(
+                    SizedBox(
                       height: MediaQuery.of(context).size.height * 0.54,
                       child: SingleChildScrollView(
                         child: Text(
@@ -258,7 +258,7 @@ class _AnimeDetailState extends State<AnimeDetail> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
@@ -272,7 +272,7 @@ class _AnimeDetailState extends State<AnimeDetail> {
                               height:
                                   MediaQuery.of(context).size.height * 0.055,
                               width: MediaQuery.of(context).size.width * 0.3,
-                              padding: EdgeInsets.all(5),
+                              padding: const EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
                                 color: button1,
