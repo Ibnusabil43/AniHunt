@@ -13,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
   String getGreeting() {
     var hour = DateTime.now().hour;
 
@@ -37,43 +38,19 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     String greeting = getGreeting();
-      backgroundColor: primary,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        toolbarHeight: 153,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Good $greeting!",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
-                ),
-                ClipOval(
-                  child: Image.asset(
-                    "assets/ProfilePictureTest.jpg",
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 24,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
+    return Scaffold(
+        backgroundColor: primary,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          automaticallyImplyLeading: false,
+          toolbarHeight: 153,
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     "Good $greeting!",
