@@ -1,5 +1,6 @@
 import 'package:anihunt/Color/ColorConst.dart';
 import 'package:anihunt/screens/Profile/ProfileScreen.dart';
+import 'package:anihunt/screens/Search/SearchAnime.dart';
 import 'package:anihunt/screens/homescreen/homescreen.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    HomeScreen(),
+    SearchAnime(),
     ProfileDetail()
   ];
 
